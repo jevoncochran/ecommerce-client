@@ -1,10 +1,15 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/product";
+import { Category } from "@/models/category";
 
 type Params = { params: { id: string } };
 
 export async function GET(req: Request, { params }: Params) {
   await mongooseConnect();
+  
+  // Not sure if this is optimal solution
+  // But the .populate("category") throws an error without this
+  const getAnyCategory = await Category.findOne({});
 
   const { id } = params;
 

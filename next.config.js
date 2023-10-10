@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [{ hostname: "i0.wp.com", protocol: "https", port: "" }],
+    remotePatterns: [
+      {
+        hostname: "jevonc-next-ecommerce.s3.us-east-2.amazonaws.com",
+        protocol: "https",
+        port: "",
+      },
+    ],
   },
 };
 

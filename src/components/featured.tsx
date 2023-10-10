@@ -3,36 +3,45 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
+import Link from "next/link";
+
+interface Product {
+  _id: string;
+  name: string;
+  category?: any;
+  description: string;
+  price: number;
+  images?: string[];
+  availability?: any;
+}
 
 const Featured = () => {
-  const [featuredProduct, setFeaturedProduct] = useState({});
+  const [featuredProduct, setFeaturedProduct] = useState<Product | null>(null);
 
   const featuredProductId = "6522ea17a0d7d31ed2a9eedf";
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/products/6522ea17a0d7d31ed2a9eedf`)
+      .get(`http://localhost:3001/api/products/${featuredProductId}`)
       .then((res) => {
-        console.log(res.data);
+        setFeaturedProduct(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    console.log(featuredProduct);
+  }, [featuredProduct]);
+
   return (
     <div className=" bg-[#222] grid grid-cols-2 gap-10 py-4 px-6">
       <div className="flex flex-col items-center gap-4">
-        <h1 className="text-white">Pro Anywhere</h1>
-        <p className="text-[#aaa]">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        <h1 className="text-white">{featuredProduct?.name}</h1>
+        <p className="text-[#aaa]">{featuredProduct?.description}</p>
         <div className="flex gap-2 mt-6">
-          <button className="btn-white">Read More</button>
+          <Link href={`/products/${featuredProduct?._id}`}>
+            <button className="btn-white">Read More</button>
+          </Link>
           <button className="btn-primary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -48,8 +57,8 @@ const Featured = () => {
       </div>
       <div className=" w-[100%] flex justify-center">
         <Image
-          src="https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/03/MacBook-Pro-scaled.jpg?fit=2560%2C1919&quality=50&strip=all&ssl=1"
-          alt="mac book pro"
+          src={featuredProduct?.images?.[0] ?? ""}
+          alt={featuredProduct?.name as string}
           height={500}
           width={500}
         />
