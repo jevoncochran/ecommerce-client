@@ -1,7 +1,23 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import React from "react";
+import axios from "axios";
 
 const Featured = () => {
+  const [featuredProduct, setFeaturedProduct] = useState({});
+
+  const featuredProductId = "6522ea17a0d7d31ed2a9eedf";
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/api/products/6522ea17a0d7d31ed2a9eedf`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div className=" bg-[#222] grid grid-cols-2 gap-10 py-4 px-6">
       <div className="flex flex-col items-center gap-4">
