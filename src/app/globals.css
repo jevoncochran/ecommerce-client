@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button {
+  cursor: pointer;
+}
+
+h1 {
+  @apply text-xl;
+}
+
+.btn-primary {
+  @apply bg-[#5542F6] border-2 border-[#5542F6] text-white px-4 py-1 rounded-md flex items-center gap-1;
+}
+
+/* .btn-primary svg {
+  @apply h-4;
+} */
+
+.btn-white {
+  @apply bg-transparent border border-white text-white px-4 py-1 rounded-md box-border;
+}

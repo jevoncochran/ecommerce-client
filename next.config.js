@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  images: {
+    remotePatterns: [{ hostname: "i0.wp.com", protocol: "https", port: "" }],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
