@@ -1,12 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Product } from "@/types";
 import Image from "next/image";
 import CartButton from "./cart-btn";
+import { CartContext } from "@/context/cart-context";
 
 const NewProducts = () => {
+  const { addProduct } = useContext(CartContext);
+
   const [newProducts, setNewProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -34,7 +37,10 @@ const NewProducts = () => {
             <span className="text-ellipsis mt-1">{product.name}</span>
             <div className="flex items-center justify-between mt-2">
               <span>${product.price}</span>
-              <CartButton includeIcon={false} />
+              <CartButton
+                includeIcon={false}
+                onAdd={() => addProduct(product)}
+              />
             </div>
           </div>
         ))}
