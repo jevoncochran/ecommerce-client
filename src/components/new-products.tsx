@@ -24,7 +24,7 @@ const NewProducts = () => {
       <h2 className=" text-4xl">Newest Products</h2>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-10 mt-8">
         {newProducts.map((product) => (
-          <div key={product._id}>
+          <div key={product._id} className="flex flex-col justify-between">
             <div className="bg-white h-[200px] relative p-5 rounded-md flex justify-center items-center">
               <Image
                 src={product.images[0]}
