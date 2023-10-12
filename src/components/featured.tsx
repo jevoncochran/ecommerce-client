@@ -4,16 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
 import Link from "next/link";
-
-interface Product {
-  _id: string;
-  name: string;
-  category?: any;
-  description: string;
-  price: number;
-  images?: string[];
-  availability?: any;
-}
+import { Product } from "@/types";
 
 const Featured = () => {
   const [featuredProduct, setFeaturedProduct] = useState<Product | null>(null);
