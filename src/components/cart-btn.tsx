@@ -2,11 +2,12 @@ import React from "react";
 
 interface CartButtonProps {
   includeIcon?: boolean;
+  onAdd: () => void;
 }
 
-const CartButton = ({ includeIcon = true }: CartButtonProps) => {
+const CartButton = ({ includeIcon = true, onAdd }: CartButtonProps) => {
   return (
-    <button className="btn-primary">
+    <button onClick={onAdd} className="btn-primary">
       {includeIcon && (
         <svg
           xmlns="http://www.w3.org/2000/svg"

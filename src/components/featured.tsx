@@ -1,13 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import axios from "axios";
 import Link from "next/link";
 import { Product } from "@/types";
 import CartButton from "./cart-btn";
+import { CartContext } from "@/context/cart-context";
 
 const Featured = () => {
+  const { cart, addProduct } = useContext(CartContext);
+
   const [featuredProduct, setFeaturedProduct] = useState<Product | null>(null);
 
   const featuredProductId = "6522ea17a0d7d31ed2a9eedf";
@@ -25,6 +28,10 @@ const Featured = () => {
     console.log(featuredProduct);
   }, [featuredProduct]);
 
+  useEffect(() => {
+    console.log(cart);
+  }, [cart]);
+
   return (
     <div className=" bg-[#222] grid grid-cols-2 gap-10 py-4 px-6">
       <div className="flex flex-col items-center gap-4">
@@ -34,7 +41,7 @@ const Featured = () => {
           <Link href={`/products/${featuredProduct?._id}`}>
             <button className="btn-white">Read More</button>
           </Link>
-          <CartButton />
+          <CartButton onAdd={() => addProduct(featuredProduct as Product)} />
         </div>
       </div>
       <div className=" w-[100%] flex justify-center">
