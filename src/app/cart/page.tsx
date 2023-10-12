@@ -1,8 +1,9 @@
 "use client";
 
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/cart-context";
 import Image from "next/image";
+import axios from "axios";
 
 const CartPage = () => {
   const { cart } = useContext(CartContext);
@@ -19,6 +20,15 @@ const CartPage = () => {
 
   const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
+  };
+
+  const checkout = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    axios
+      .post("/api/checkout", { shippingInfo, products: cart })
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   let totalPrice = 0;
@@ -78,7 +88,7 @@ const CartPage = () => {
       {!!cart.length && (
         <div className="bg-white col-span-4 rounded-lg p-7">
           <h2>Your Order</h2>
-          <form method="post" action="/api/checkout">
+          <form onSubmit={checkout}>
             <input
               type="text"
               placeholder="Name"
@@ -128,7 +138,9 @@ const CartPage = () => {
               value={shippingInfo.zipCode}
               onChange={inputChangeHandler}
             />
-            <button className="btn-primary">Continue to payment</button>
+            <button type="submit" className="btn-primary">
+              Continue to payment
+            </button>
           </form>
         </div>
       )}
