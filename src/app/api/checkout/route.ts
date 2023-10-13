@@ -1,4 +1,5 @@
 import { mongooseConnect } from "@/lib/mongoose";
+import { stripe } from "@/lib/stripe";
 import { Order } from "@/models/order";
 
 export async function POST(req: Request) {
@@ -9,7 +10,7 @@ export async function POST(req: Request) {
 
   try {
     const order = await Order.create({
-      line_items: products,
+      products,
       name: shippingInfo.name,
       email: shippingInfo.email,
       address: shippingInfo.email,
@@ -20,7 +21,30 @@ export async function POST(req: Request) {
       paid: false,
     });
 
-    return new Response(JSON.stringify(order), { status: 201 });
+    let line_items = [];
+    products.forEach((product) => {
+      line_items.push({
+        quantity: 1,
+        price_data: {
+          currency: "USD",
+          product_data: { name: product.name },
+          // Added this because some prices were being converted to a number with crazy amount of decimals
+          // Not sure why this happens
+          unit_amount: Math.trunc(product.price * 100),
+        },
+      });
+    });
+
+    const session = await stripe.checkout.sessions.create({
+      line_items,
+      mode: "payment",
+      customer_email: shippingInfo.email,
+      success_url: `${process.env.PUBLIC_URL}/cart?success=true`,
+      cancel_url: `${process.env.PUBLIC_URL}/cart?cancelled=true`,
+      metadata: { orderId: order._id.toString() },
+    });
+
+    return new Response(JSON.stringify({ url: session.url }), { status: 201 });
   } catch (error) {
     return new Response(JSON.stringify(error), { status: 500 });
   }

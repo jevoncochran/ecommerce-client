@@ -6,7 +6,7 @@ import Image from "next/image";
 import axios from "axios";
 
 const CartPage = () => {
-  const { cart } = useContext(CartContext);
+  const { cart, emptyCart } = useContext(CartContext);
 
   const [shippingInfo, setShippingInfo] = useState({
     name: "",
@@ -27,7 +27,9 @@ const CartPage = () => {
     axios
       .post("/api/checkout", { shippingInfo, products: cart })
       .then((res) => {
-        console.log(res.data);
+        if (res.data.url) {
+          window.location = res.data.url;
+        }
       });
   };
 
@@ -37,8 +39,20 @@ const CartPage = () => {
   }
 
   useEffect(() => {
-    console.log(shippingInfo);
-  }, [shippingInfo]);
+    console.log(cart);
+  }, [cart]);
+
+  if (window.location.href.includes("success")) {
+    emptyCart();
+    return (
+      <div className="grid grid-cols-12 gap-10 py-4 px-6">
+        <div className="bg-white col-span-5 rounded-lg p-7">
+          <h1>Your payment was successful!</h1>
+          <p>We will email you when your order has been shipped. Thanks!</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-12 gap-10 py-4 px-6">
