@@ -34,7 +34,11 @@ const NewProducts = () => {
                 className=" w-[150px] h-[150px] object-contain"
               />
             </div>
-            <span className="text-ellipsis mt-1">{product.name}</span>
+            {/* TODO: Need to figure out how to make all product name spans the same height */}
+            {/* Some are larger than others depending on number of lines of text */}
+            <span className="text-ellipsis mt-1 height-[100px]">
+              {product.name}
+            </span>
             <div className="flex items-center justify-between mt-2">
               <span>${product.price}</span>
               <CartButton

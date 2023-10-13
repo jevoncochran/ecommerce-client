@@ -20,6 +20,11 @@ export const CartContextProvider = ({
     setCart((prev) => [...prev, product]);
   };
 
+  const emptyCart = () => {
+    localStorage.removeItem("cart");
+    setCart([]);
+  };
+
   useEffect(() => {
     if (cart.length > 0) {
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -27,7 +32,7 @@ export const CartContextProvider = ({
   }, [cart]);
 
   return (
-    <CartContext.Provider value={{ cart, setCart, addProduct }}>
+    <CartContext.Provider value={{ cart, setCart, addProduct, emptyCart }}>
       {children}
     </CartContext.Provider>
   );
