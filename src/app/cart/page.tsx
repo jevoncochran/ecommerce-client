@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/cart-context";
 import Image from "next/image";
 import axios from "axios";
+import { useIsClient } from "@/context/is-client-context";
 
 const CartPage = () => {
   const { cart, emptyCart } = useContext(CartContext);
@@ -18,6 +19,8 @@ const CartPage = () => {
     zipCode: "",
   });
 
+  const isClient = useIsClient();
+
   const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
   };
@@ -27,7 +30,7 @@ const CartPage = () => {
     axios
       .post("/api/checkout", { shippingInfo, products: cart })
       .then((res) => {
-        if (res.data.url) {
+        if (isClient && res.data.url) {
           window.location = res.data.url;
         }
       });
@@ -42,7 +45,7 @@ const CartPage = () => {
     console.log(cart);
   }, [cart]);
 
-  if (window.location.href.includes("success")) {
+  if (isClient && window.location.href.includes("success")) {
     emptyCart();
     return (
       <div className="grid grid-cols-12 gap-10 py-4 px-6">
