@@ -10,11 +10,7 @@ export const CartContextProvider = ({
 }: {
   children: JSX.Element;
 }) => {
-  const cartJson = localStorage.getItem("cart");
-
-  const [cart, setCart] = useState<Product[]>(
-    cartJson !== null ? JSON.parse(localStorage.getItem("cart")!) : []
-  );
+  const [cart, setCart] = useState<Product[]>([]);
 
   const addProduct = (product: Product) => {
     setCart((prev) => [...prev, product]);
@@ -24,6 +20,16 @@ export const CartContextProvider = ({
     localStorage.removeItem("cart");
     setCart([]);
   };
+
+  useEffect(() => {
+    const cartJson = localStorage.getItem("cart");
+    if (cartJson !== null) {
+      setCart(JSON.parse(localStorage.getItem("cart")!));
+      // TODO: I believe I do not need the else statement
+    } else {
+      setCart([]);
+    }
+  }, []);
 
   useEffect(() => {
     if (cart.length > 0) {
