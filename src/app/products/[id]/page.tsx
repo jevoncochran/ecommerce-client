@@ -5,6 +5,7 @@ import axios from "axios";
 import { Product } from "@/types";
 import WhiteContentBox from "@/components/white-content-box";
 import Image from "next/image";
+import CartButton from "@/components/cart-btn";
 
 const ProductPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
@@ -65,7 +66,11 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
       </WhiteContentBox>
       <div className="col-span-8">
         <h1>{product?.name}</h1>
-        <p>{product?.description}</p>
+        <p className="mt-2">{product?.description}</p>
+        <div className="flex items-center gap-4 mt-6">
+          <span>${product.price}</span>
+          <CartButton product={product} />
+        </div>
       </div>
     </div>
   ) : null;

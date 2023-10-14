@@ -3,7 +3,7 @@
 import { Product } from "@/types";
 import { createContext, useEffect, useState } from "react";
 
-export const CartContext = createContext({});
+export const CartContext = createContext<any>({});
 
 export const CartContextProvider = ({
   children,
@@ -38,7 +38,7 @@ export const CartContextProvider = ({
   }, [cart]);
 
   return (
-    <CartContext.Provider value={{ cart, setCart, addProduct, emptyCart }}>
+    <CartContext.Provider value={{ cart, addProduct, emptyCart }}>
       {children}
     </CartContext.Provider>
   );

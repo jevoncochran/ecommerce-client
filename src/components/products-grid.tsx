@@ -1,8 +1,6 @@
-import React, { useContext } from "react";
 import { Product } from "@/types";
 import Image from "next/image";
 import CartButton from "./cart-btn";
-import { CartContext } from "@/context/cart-context";
 import Link from "next/link";
 
 interface ProductsGridProps {
@@ -10,7 +8,6 @@ interface ProductsGridProps {
 }
 
 const ProductsGrid = ({ products }: ProductsGridProps) => {
-  const { addProduct } = useContext(CartContext);
 
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-10 mt-8">
@@ -35,7 +32,7 @@ const ProductsGrid = ({ products }: ProductsGridProps) => {
           </span>
           <div className="flex items-center justify-between mt-2">
             <span>${product.price}</span>
-            <CartButton includeIcon={false} onAdd={() => addProduct(product)} />
+            <CartButton includeIcon={false} product={product} />
           </div>
         </div>
       ))}

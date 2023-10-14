@@ -14,7 +14,7 @@ const ProductsPage = () => {
     });
   }, []);
   return (
-    <div>
+    <div className="py-4 px-6">
       <h1>Products</h1>
       <ProductsGrid products={products} />
     </div>

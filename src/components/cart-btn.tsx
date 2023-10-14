@@ -1,13 +1,17 @@
-import React from "react";
+import { CartContext } from "@/context/cart-context";
+import { Product } from "@/types";
+import React, { useContext } from "react";
 
 interface CartButtonProps {
   includeIcon?: boolean;
-  onAdd: () => void;
+  product: Product;
 }
 
-const CartButton = ({ includeIcon = true, onAdd }: CartButtonProps) => {
+const CartButton = ({ includeIcon = true, product }: CartButtonProps) => {
+  const { addProduct } = useContext(CartContext);
+
   return (
-    <button onClick={onAdd} className="btn-primary">
+    <button onClick={() => addProduct(product)} className="btn-primary">
       {includeIcon && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
