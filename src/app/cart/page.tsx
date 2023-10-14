@@ -63,8 +63,8 @@ const CartPage = () => {
       <WhiteContentBox additionalStyles="col-span-8">
         {cart.length > 0 ? (
           <div>
-            <h2>Cart</h2>
-            <table>
+            <h2 className="title">Cart</h2>
+            <table className="mt-4">
               <thead>
                 <tr>
                   <th>Product</th>
@@ -106,8 +106,8 @@ const CartPage = () => {
       {!!cart.length && (
         <WhiteContentBox additionalStyles="col-span-4">
           <>
-            <h2>Your Order</h2>
-            <form onSubmit={checkout}>
+            <h2 className="subheading">Shipping</h2>
+            <form onSubmit={checkout} className="mt-4">
               <input
                 type="text"
                 placeholder="Name"

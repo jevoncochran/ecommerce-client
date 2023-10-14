@@ -67,7 +67,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
       <div className="col-span-8">
         <h1>{product?.name}</h1>
         <p className="mt-2">{product?.description}</p>
-        <div className="flex items-center gap-4 mt-6">
+        <div className="flex items-center gap-5 mt-6">
           <span>${product.price}</span>
           <CartButton product={product} />
         </div>

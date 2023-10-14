@@ -14,6 +14,14 @@ h1 {
   @apply text-xl;
 }
 
+.title {
+  @apply text-4xl;
+}
+
+.subheading {
+  @apply text-3xl;
+}
+
 .btn-primary {
   @apply bg-[#5542F6] border-2 border-[#5542F6] text-white px-4 py-1 rounded-md flex items-center gap-1;
 }
