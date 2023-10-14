@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/header";
+import { IsClientCtxProvider } from "@/context/is-client-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +19,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <CartContextProvider>
-        <body className={inter.className}>
-          <Header />
-          {children}
-        </body>
-      </CartContextProvider>
+      <IsClientCtxProvider>
+        <CartContextProvider>
+          <body className={inter.className}>
+            <Header />
+            {children}
+          </body>
+        </CartContextProvider>
+      </IsClientCtxProvider>
     </html>
   );
 }

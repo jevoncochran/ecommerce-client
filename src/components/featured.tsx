@@ -9,7 +9,7 @@ import CartButton from "./cart-btn";
 import { CartContext } from "@/context/cart-context";
 
 const Featured = () => {
-  const { cart, addProduct } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
 
   const [featuredProduct, setFeaturedProduct] = useState<Product | null>(null);
 
@@ -41,7 +41,7 @@ const Featured = () => {
           <Link href={`/products/${featuredProduct?._id}`}>
             <button className="btn-white">Read More</button>
           </Link>
-          <CartButton onAdd={() => addProduct(featuredProduct as Product)} />
+          <CartButton product={featuredProduct!} />
         </div>
       </div>
       <div className=" w-[100%] flex justify-center">
