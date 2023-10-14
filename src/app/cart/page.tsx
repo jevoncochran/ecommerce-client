@@ -6,9 +6,11 @@ import Image from "next/image";
 import axios from "axios";
 import { useIsClient } from "@/context/is-client-context";
 import WhiteContentBox from "@/components/white-content-box";
+import { UiContext } from "@/context/ui-context";
 
 const CartPage = () => {
   const { cart, emptyCart } = useContext(CartContext);
+  const { hideMobileNav } = useContext(UiContext);
 
   const [shippingInfo, setShippingInfo] = useState({
     name: "",
@@ -43,8 +45,9 @@ const CartPage = () => {
   }
 
   useEffect(() => {
-    console.log(cart);
-  }, [cart]);
+    hideMobileNav();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isClient && window.location.href.includes("success")) {
     emptyCart();
