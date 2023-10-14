@@ -2,20 +2,16 @@ import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/product";
 import { Category } from "@/models/category";
 
-type Params = { params: { id: string } };
-
-export async function GET(req: Request, { params }: Params) {
+export async function GET() {
   await mongooseConnect();
-  
+
   // Not sure if this is optimal solution
   // But the .populate("category") throws an error without this
   const getAnyCategory = await Category.findOne({});
 
-  const { id } = params;
-
   try {
-    const product = await Product.findById(id).populate("category");
-    return new Response(JSON.stringify(product), { status: 200 });
+    const products = await Product.find({}, null, { sort: { createdAt: -1 } });
+    return new Response(JSON.stringify(products), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify(error), { status: 500 });
   }

@@ -5,6 +5,7 @@ import { CartContext } from "@/context/cart-context";
 import Image from "next/image";
 import axios from "axios";
 import { useIsClient } from "@/context/is-client-context";
+import WhiteContentBox from "@/components/white-content-box";
 
 const CartPage = () => {
   const { cart, emptyCart } = useContext(CartContext);
@@ -59,7 +60,7 @@ const CartPage = () => {
 
   return (
     <div className="grid grid-cols-12 gap-10 py-4 px-6">
-      <div className="bg-white col-span-8 rounded-lg p-7">
+      <WhiteContentBox additionalStyles="col-span-8">
         {cart.length > 0 ? (
           <div>
             <h2>Cart</h2>
@@ -101,65 +102,67 @@ const CartPage = () => {
         ) : (
           <div>Your cart is empty</div>
         )}
-      </div>
+      </WhiteContentBox>
       {!!cart.length && (
-        <div className="bg-white col-span-4 rounded-lg p-7">
-          <h2>Your Order</h2>
-          <form onSubmit={checkout}>
-            <input
-              type="text"
-              placeholder="Name"
-              name="name"
-              value={shippingInfo.name}
-              onChange={inputChangeHandler}
-            />
-            <input
-              type="text"
-              placeholder="Email"
-              name="email"
-              value={shippingInfo.email}
-              onChange={inputChangeHandler}
-            />
-            <input
-              type="text"
-              placeholder="Address"
-              name="address"
-              value={shippingInfo.address}
-              onChange={inputChangeHandler}
-            />
-            <input
-              type="text"
-              placeholder="Address Line 2"
-              name="addressLine2"
-              value={shippingInfo.addressLine2}
-              onChange={inputChangeHandler}
-            />
-            <input
-              type="text"
-              placeholder="City"
-              name="city"
-              value={shippingInfo.city}
-              onChange={inputChangeHandler}
-            />
-            <input
-              type="text"
-              placeholder="State"
-              name="state"
-              value={shippingInfo.state}
-              onChange={inputChangeHandler}
-            />
-            <input
-              type="text"
-              placeholder="Zip Code"
-              name="zipCode"
-              value={shippingInfo.zipCode}
-              onChange={inputChangeHandler}
-            />
-            <button type="submit" className="btn-primary">
-              Continue to payment
-            </button>
-          </form>
-        </div>
+        <WhiteContentBox additionalStyles="col-span-4">
+          <>
+            <h2>Your Order</h2>
+            <form onSubmit={checkout}>
+              <input
+                type="text"
+                placeholder="Name"
+                name="name"
+                value={shippingInfo.name}
+                onChange={inputChangeHandler}
+              />
+              <input
+                type="text"
+                placeholder="Email"
+                name="email"
+                value={shippingInfo.email}
+                onChange={inputChangeHandler}
+              />
+              <input
+                type="text"
+                placeholder="Address"
+                name="address"
+                value={shippingInfo.address}
+                onChange={inputChangeHandler}
+              />
+              <input
+                type="text"
+                placeholder="Address Line 2"
+                name="addressLine2"
+                value={shippingInfo.addressLine2}
+                onChange={inputChangeHandler}
+              />
+              <input
+                type="text"
+                placeholder="City"
+                name="city"
+                value={shippingInfo.city}
+                onChange={inputChangeHandler}
+              />
+              <input
+                type="text"
+                placeholder="State"
+                name="state"
+                value={shippingInfo.state}
+                onChange={inputChangeHandler}
+              />
+              <input
+                type="text"
+                placeholder="Zip Code"
+                name="zipCode"
+                value={shippingInfo.zipCode}
+                onChange={inputChangeHandler}
+              />
+              <button type="submit" className="btn-primary">
+                Continue to payment
+              </button>
+            </form>
+          </>
+        </WhiteContentBox>
       )}
     </div>
   );
