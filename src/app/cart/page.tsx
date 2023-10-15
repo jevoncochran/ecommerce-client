@@ -7,6 +7,7 @@ import axios from "axios";
 import { useIsClient } from "@/context/is-client-context";
 import WhiteContentBox from "@/components/white-content-box";
 import { UiContext } from "@/context/ui-context";
+import { Product } from "@/types";
 
 const CartPage = () => {
   const { cart, emptyCart } = useContext(CartContext);
@@ -76,17 +77,27 @@ const CartPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {cart.map((product) => (
+                {cart.map((product: Product) => (
                   <tr key={product._id} className=" border-t border-gray-300">
                     <td className="py-3">
                       <div className="h-[100px] w-[100px] bg-white P-2.5 rounded-lg border border-gray-200 flex justify-center items-center relative">
-                        <Image
-                          src={product.images[0]}
-                          height={120}
-                          width={120}
-                          alt={product.name}
-                          className="h-[80px] w-[80px] object-contain"
-                        />
+                        {product.images?.[0] ? (
+                          <Image
+                            src={product.images?.[0]}
+                            height={120}
+                            width={120}
+                            alt={product.name}
+                            className="h-[80px] w-[80px] object-contain"
+                          />
+                        ) : (
+                          <Image
+                            src={"https://fakeimg.pl/150x150?text=No+image"}
+                            height={120}
+                            width={120}
+                            alt={product.name}
+                            className="h-[80px] w-[80px] object-contain"
+                          />
+                        )}
                       </div>
                       {product.name}
                     </td>
