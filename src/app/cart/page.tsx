@@ -53,7 +53,7 @@ const CartPage = () => {
     emptyCart();
     return (
       <div className="grid grid-cols-12 gap-10 py-4 px-6">
-        <div className="bg-white col-span-5 rounded-lg p-7">
+        <div className="bg-white col-span-12 md:col-span-5 rounded-lg p-7">
           <h1>Your payment was successful!</h1>
           <p>We will email you when your order has been shipped. Thanks!</p>
         </div>
@@ -63,7 +63,7 @@ const CartPage = () => {
 
   return (
     <div className="grid grid-cols-12 gap-10 py-4 px-6">
-      <WhiteContentBox additionalStyles="col-span-8">
+      <WhiteContentBox additionalStyles="col-span-full md:col-span-8">
         {cart.length > 0 ? (
           <div>
             <h2 className="title">Cart</h2>
@@ -107,7 +107,7 @@ const CartPage = () => {
         )}
       </WhiteContentBox>
       {!!cart.length && (
-        <WhiteContentBox additionalStyles="col-span-4">
+        <WhiteContentBox additionalStyles="col-span-full md:col-span-4">
           <>
             <h2 className="subheading">Shipping</h2>
             <form onSubmit={checkout} className="mt-4">

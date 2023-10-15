@@ -34,8 +34,15 @@ const Featured = () => {
 
   return (
     <div className=" bg-[#222] grid grid-cols-2 gap-10 py-4 px-6">
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col col-span-2 md:col-span-1 items-center gap-4">
         <h1 className="text-white">{featuredProduct?.name}</h1>
+        <Image
+          src={featuredProduct?.images?.[0] ?? ""}
+          alt={featuredProduct?.name as string}
+          height={500}
+          width={500}
+          className="md:hidden"
+        />
         <p className="text-[#aaa]">{featuredProduct?.description}</p>
         <div className="flex gap-2 mt-6">
           <Link href={`/products/${featuredProduct?._id}`}>
@@ -44,7 +51,7 @@ const Featured = () => {
           <CartButton product={featuredProduct!} />
         </div>
       </div>
-      <div className=" w-[100%] flex justify-center">
+      <div className=" w-[100%] hidden md:flex justify-center">
         <Image
           src={featuredProduct?.images?.[0] ?? ""}
           alt={featuredProduct?.name as string}

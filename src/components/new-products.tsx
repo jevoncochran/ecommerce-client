@@ -17,7 +17,7 @@ const NewProducts = () => {
 
   return (
     <div className="py-4 px-6">
-      <h2 className=" text-4xl">Newest Products</h2>
+      <h2 className=" text-4xl text-center md:text-left">Newest Products</h2>
       <ProductsGrid products={newProducts} />
     </div>
   );

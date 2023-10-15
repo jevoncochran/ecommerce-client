@@ -33,7 +33,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
 
   return product ? (
     <div className="grid grid-cols-12 gap-10 py-4 px-6">
-      <WhiteContentBox additionalStyles="col-span-4">
+      <WhiteContentBox additionalStyles="col-span-full md:col-span-4">
         <div className="flex flex-col items-center">
           <Image
             src={activeImage}
@@ -64,7 +64,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
           </div>
         </div>
       </WhiteContentBox>
-      <div className="col-span-8">
+      <div className="col-span-full md:col-span-8">
         <h1>{product?.name}</h1>
         <p className="mt-2">{product?.description}</p>
         <div className="flex items-center gap-5 mt-6">
