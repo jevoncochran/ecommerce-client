@@ -6,9 +6,11 @@ import Image from "next/image";
 import axios from "axios";
 import { useIsClient } from "@/context/is-client-context";
 import WhiteContentBox from "@/components/white-content-box";
+import { UiContext } from "@/context/ui-context";
 
 const CartPage = () => {
   const { cart, emptyCart } = useContext(CartContext);
+  const { hideMobileNav } = useContext(UiContext);
 
   const [shippingInfo, setShippingInfo] = useState({
     name: "",
@@ -43,14 +45,15 @@ const CartPage = () => {
   }
 
   useEffect(() => {
-    console.log(cart);
-  }, [cart]);
+    hideMobileNav();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isClient && window.location.href.includes("success")) {
     emptyCart();
     return (
       <div className="grid grid-cols-12 gap-10 py-4 px-6">
-        <div className="bg-white col-span-5 rounded-lg p-7">
+        <div className="bg-white col-span-12 md:col-span-5 rounded-lg p-7">
           <h1>Your payment was successful!</h1>
           <p>We will email you when your order has been shipped. Thanks!</p>
         </div>
@@ -60,11 +63,11 @@ const CartPage = () => {
 
   return (
     <div className="grid grid-cols-12 gap-10 py-4 px-6">
-      <WhiteContentBox additionalStyles="col-span-8">
+      <WhiteContentBox additionalStyles="col-span-full md:col-span-8">
         {cart.length > 0 ? (
           <div>
-            <h2>Cart</h2>
-            <table>
+            <h2 className="title">Cart</h2>
+            <table className="mt-4">
               <thead>
                 <tr>
                   <th>Product</th>
@@ -104,10 +107,10 @@ const CartPage = () => {
         )}
       </WhiteContentBox>
       {!!cart.length && (
-        <WhiteContentBox additionalStyles="col-span-4">
+        <WhiteContentBox additionalStyles="col-span-full md:col-span-4">
           <>
-            <h2>Your Order</h2>
-            <form onSubmit={checkout}>
+            <h2 className="subheading">Shipping</h2>
+            <form onSubmit={checkout} className="mt-4">
               <input
                 type="text"
                 placeholder="Name"
