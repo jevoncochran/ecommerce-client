@@ -10,4 +10,5 @@ export interface Product {
   price: number;
   images?: string[];
   availability?: any;
+  sellerId: string;
 }
