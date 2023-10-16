@@ -24,14 +24,6 @@ const Featured = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
-    console.log(featuredProduct);
-  }, [featuredProduct]);
-
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
-
   return (
     <div className=" bg-[#222] grid grid-cols-2 gap-10 py-4 px-6">
       <div className="flex flex-col col-span-2 md:col-span-1 items-center gap-4">

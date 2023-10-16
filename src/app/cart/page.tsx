@@ -12,7 +12,6 @@ import { Product } from "@/types";
 const getTotal = (products: Product[]) => {
   let total = 0;
   products.forEach((product) => {
-    console.log(total + product.price);
     total += product.price;
   });
 
