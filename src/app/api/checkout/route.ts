@@ -74,7 +74,7 @@ export async function POST(req: Request) {
           product_data: { name: product.name },
           // Added this because some prices were being converted to a number with crazy amount of decimals
           // Not sure why this happens
-          unit_amount: Math.trunc(product.price * 100),
+          unit_amount: parseFloat((product.price * 100).toFixed(2)),
         },
       });
     });

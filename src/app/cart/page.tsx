@@ -9,6 +9,18 @@ import WhiteContentBox from "@/components/white-content-box";
 import { UiContext } from "@/context/ui-context";
 import { Product } from "@/types";
 
+const getTotal = (products: Product[]) => {
+  let total = 0;
+  products.forEach((product) => {
+    console.log(total + product.price);
+    total += product.price;
+  });
+
+  // Rounds to the nearest cent
+  // Possibility of getting crazy decimal number without this for some reason
+  return parseFloat(total.toFixed(2));
+};
+
 const CartPage = () => {
   const { cart, emptyCart } = useContext(CartContext);
   const { hideMobileNav } = useContext(UiContext);
@@ -108,7 +120,7 @@ const CartPage = () => {
                 <tr>
                   <td></td>
                   <td></td>
-                  <td>${totalPrice}</td>
+                  <td>${getTotal(cart)}</td>
                 </tr>
               </tbody>
             </table>
