@@ -11,7 +11,9 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
 
   const [product, setProduct] = useState<Product | null>(null);
-  const [activeImage, setActiveImage] = useState(null);
+  const [activeImage, setActiveImage] = useState<string | null | undefined>(null);
+
+  const imageExists = product?.images?.[0];
 
   const getLittleImgBorderStyling = (img: string, activeImg: string) => {
     if (img === activeImg) {
@@ -28,20 +30,30 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   }, []);
 
   useEffect(() => {
-    setActiveImage(product?.images[0]);
+    setActiveImage(product?.images?.[0]);
   }, [product]);
 
   return product ? (
     <div className="grid grid-cols-12 gap-10 py-4 px-6">
       <WhiteContentBox additionalStyles="col-span-full md:col-span-4">
         <div className="flex flex-col items-center">
-          <Image
-            src={activeImage}
-            alt={product?.name}
-            height={300}
-            width={300}
-            className="h-[300px] w-[300px]"
-          />
+          {imageExists ? (
+            <Image
+              src={activeImage!}
+              alt={product?.name}
+              height={300}
+              width={300}
+              className="h-[300px] w-[300px]"
+            />
+          ) : (
+            <Image
+              src={"https://fakeimg.pl/150x150?text=No+image"}
+              alt={product?.name}
+              height={300}
+              width={300}
+              className="h-[300px] w-[300px]"
+            />
+          )}
           <div className="grid grid-cols-12 gap-2 mt-4">
             {product?.images?.map((img, idx) => (
               <div

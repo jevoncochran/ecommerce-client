@@ -8,6 +8,7 @@ const ProductSchema = new mongoose.Schema(
     price: { type: Number, require: true },
     images: { type: [String] },
     availability: { type: Object },
+    sellerId: { type: mongoose.Types.ObjectId, ref: "User", require: true },
   },
   { timestamps: true }
 );

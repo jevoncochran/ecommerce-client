@@ -10,7 +10,6 @@ const NewProducts = () => {
 
   useEffect(() => {
     axios.get("/api/products/new").then((res) => {
-      console.log(res.data);
       setNewProducts(res.data);
     });
   }, []);
