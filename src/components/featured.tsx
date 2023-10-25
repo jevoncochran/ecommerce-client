@@ -17,7 +17,7 @@ const Featured = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/products/${featuredProductId}`)
+      .get(`${process.env.NEXT_PUBLIC_URL}/api/products/${featuredProductId}`)
       .then((res) => {
         setFeaturedProduct(res.data);
       })
