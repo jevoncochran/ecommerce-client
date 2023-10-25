@@ -30,7 +30,7 @@ const Header = () => {
       }
     >
       <Link href="/" className="hidden md:block text-white">
-        E-commerce
+        J-Commerce
       </Link>
 
       <div

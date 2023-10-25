@@ -7,11 +7,13 @@ export async function GET() {
   const currentDate = new Date();
   // TODO: Figure out a better way to work with dates, use a library
   // Also, make this from the date one week ago and not the time
-  const oneWeekAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const twoWeeksAgo = new Date(
+    currentDate.getTime() - 14 * 24 * 60 * 60 * 1000
+  );
 
   try {
     const newProducts = await Product.find(
-      { createdAt: { $gt: oneWeekAgo } },
+      { createdAt: { $gt: twoWeeksAgo } },
       null,
       { sort: { createdAt: -1 }, limit: 18 }
     );
