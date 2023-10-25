@@ -2,9 +2,20 @@ import { mongooseConnect } from "@/lib/mongoose";
 import { stripe } from "@/lib/stripe";
 import { Order } from "@/models/order";
 import { Product } from "@/types";
+import Stripe from "stripe";
 
-const parseProducts = (productsArr) => {
-  let productsParsed = [];
+type ParsedProduct = {
+  _id: string;
+  name: string;
+  price: number;
+};
+
+type Order = {
+  [key: string]: Product[];
+};
+
+const parseProducts = (productsArr: Product[]) => {
+  let productsParsed: ParsedProduct[] = [];
   let total = 0;
 
   productsArr.forEach((p) => {
@@ -23,7 +34,7 @@ export async function POST(req: Request) {
 
   try {
     // object consisting of sellers as keys, array of products as values
-    let orders = {};
+    let orders: Order = {};
     let orderIds = [];
     // Separate products by seller
     products.forEach((product: Product) => {
@@ -65,8 +76,8 @@ export async function POST(req: Request) {
       orderIds.push(orderDoc._id.toString());
     }
 
-    let line_items = [];
-    products.forEach((product) => {
+    let line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
+    products.forEach((product: Product) => {
       line_items.push({
         quantity: 1,
         price_data: {

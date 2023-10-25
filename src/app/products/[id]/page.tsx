@@ -11,7 +11,9 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
 
   const [product, setProduct] = useState<Product | null>(null);
-  const [activeImage, setActiveImage] = useState<string | null | undefined>(null);
+  const [activeImage, setActiveImage] = useState<string | null | undefined>(
+    null
+  );
 
   const imageExists = product?.images?.[0];
 
@@ -27,7 +29,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     axios.get(`/api/products/${id}`).then((res) => {
       setProduct(res.data);
     });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     setActiveImage(product?.images?.[0]);
